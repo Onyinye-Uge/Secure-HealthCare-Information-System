@@ -119,6 +119,7 @@ As an aspiring cybersecurity systems analyst, I was inspired to create a system 
 - Enable automated backups and disaster recovery plans.
 - Set up real-time alerts for suspicious behavior.
 - Launch user education modules including in-app security guides and tips.
+- Implement measures for load balancing and caching.
 
 ### Next Steps (Non-Security Implementations)
 - Add a websocket function to ensure communication between different authorised users. A means for effective organisation between employees that work on sight, and possibly from home.
