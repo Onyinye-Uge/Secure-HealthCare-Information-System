@@ -211,7 +211,7 @@ router.post("/verify-mfa", mfaAuthLimiter, async (req, res) => {
     let verified = verifyToken(user.mfaSecret, token);
     // Log activity
     logAuthenticationActivity("User has successfully verified their mfa", req.session.user.employeeId || 'Unknown');
-    console.log('verified: ' + verified);
+    console.log(`\n${req.session.user.employeeId} verified: ` + verified);
 
     // If the user is validated, we route them over to their respective portal
     if (verified) {
