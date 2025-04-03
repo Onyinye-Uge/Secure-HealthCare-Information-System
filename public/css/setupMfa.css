@@ -1,0 +1,223 @@
+/* ====== Reset & Base ====== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ====== Tag Configuration ====== */
+body {
+    font-family: 'Courier New', Courier, sans-serif;
+    background: linear-gradient(to right, #1F2C45, #243b55);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white;
+    text-align: center;
+}
+
+label {
+    color: black;
+}
+
+input {
+    margin: 10px;
+    padding: 8px;
+    width: 300px;
+    text-align: center;
+    border-radius: 6px;
+    border: 1px solid #ccddee;
+    font-size: 1rem;
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    color: #55D6C2;
+}
+
+p {
+    color: white;
+}
+
+/* ====== Header & Footer ====== */
+.site-header {
+    color: white;
+    padding: 60px 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.site-header::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+}
+
+.footer-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    bottom: -100px;
+    left: -100px;
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+}
+
+/* ====== Animations ====== */
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(20px); }
+}
+
+/* ====== Wrapper (Centers Stack Vertically) ====== */
+.mfa-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+/* ====== QR Code Box ====== */
+.qr-code-box {
+    background-color: white;
+    padding: 1.5rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 90%;
+    color: #1F2C45;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-code-box p{
+    color: black
+}
+
+.qr-code-box img {
+    width: 130px;
+    height: 120px;
+    margin-bottom: 1rem;
+}
+
+.qr-code-box code {
+    display: inline-block;
+    margin-top: 0.5rem;
+    font-size: 0.8rem;
+    color: #0056b3;
+    background-color: #f4f8ff;
+    padding: 0.3rem 0.5rem;
+    border-radius: 4px;
+    word-break: break-all;
+    max-width: 100%;
+    overflow-wrap: break-word;
+}
+
+/* ====== MFA Form Box ====== */
+.mfa-setup-container {
+    background-color: white;
+    color: #1F2C45;
+    padding: 2rem 3rem;
+    font-size: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    max-width: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.mfa-setup-container p {
+    color: #1F2C45;
+    margin-bottom: 1rem;
+}
+
+.error {
+    background: #ffe6e6;
+    color: #cc0000;
+    padding: 10px;
+    margin: 10px auto;
+    border: 1px solid #cc0000;
+    border-radius: 4px;
+    width: fit-content;
+}
+
+/* ====== Form Elements ====== */
+.form-group {
+    margin-bottom: 1.2rem;
+    text-align: center;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-size: 16px;
+    margin-top: 20px;
+}
+
+/* ====== Button Styling ====== */
+button {
+    background-color: #99C4DF;
+    color: black;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: skyblue;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+
+    .qr-code-box,
+    .mfa-setup-container {
+        width: 95%;
+        padding: 1rem;
+    }
+}

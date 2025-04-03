@@ -1,0 +1,28 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <link rel="stylesheet" href="/css/layout.css">
+    <title>Login Page</title>
+{% endblock %}
+
+<!-- Login Container -->
+{% block content %}
+    <div class="login-container">
+        {% if error %}
+          <div class="error-message">
+            {{ error }}
+          </div>
+        {% endif %}
+        <form id="loginForm" action="/loginHandler" method="POST" enctype="application/x-www-form-urlencoded">
+            <label for="employeeId">Employee ID</label>
+            <input type="text" id="employeeId" name="employeeId" required>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+
+            <div id="button-container">
+                <button type="submit" id="loginButton">Submit</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

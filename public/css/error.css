@@ -1,0 +1,120 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, sans-serif;
+    /*background-color:#5D5E60;*/
+    background: linear-gradient(to right, #1F2C45, #243b55);
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* It stops the page from scrolling*/
+}
+
+p, h1, a {
+    color: white;
+}
+
+a {
+    text-decoration: none; /* Removes underlines */
+    color: white;
+}
+
+a:hover{
+    color: #55D6C2;
+}
+
+p{
+    margin-bottom: 10px;
+}
+
+/* ====== Class Stylings ====== */
+.footer-container{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+
+.site-header::after {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    top: -100px;
+    right: -100px;
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+}
+
+/*This positions the animated circle to the left of the footer*/
+.site-footer::before {
+    content: '';
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    background: rgba(255, 255, 255, 0.1);
+    bottom: -100px;
+    left: -100px;
+    border-radius: 50%;
+    animation: float 4s ease-in-out infinite;
+}
+
+/* ====== Tag id stylings ====== */
+#errorWarning {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 360px;
+}
+
+#redirectUserContainer{
+    margin: 20px 10px 20px 20px;
+}
+
+#redirectUserContainer a {
+    padding: 10px 60px 10px 60px; /* top -> right -> bottom -> left */
+    background-color: #ACCEEB;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 250px;
+    margin: 10px 10px 10px 10px;
+}
+
+#redirectUser a {
+    border-radius: 4px;
+}
+
+#redirectUserContainer a:hover {
+    background-color: #55D6C2;
+}
+
+#firstHeader {
+    font-size: 50px;
+    margin-bottom: 10px;
+}
+
+/** ====== Tag Animations Configuration ======*!*/
+
+/*This moves the circle from its original position down 20 pixels, and returns the circle to its original position*/
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(20px); }
+}
+
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+
+    .subtitle {
+        font-size: 1rem;
+    }
+}

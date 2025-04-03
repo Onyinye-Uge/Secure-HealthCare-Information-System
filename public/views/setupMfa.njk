@@ -1,0 +1,30 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+  <title>Multi-Factor Authentication Setup</title>
+  <link rel="stylesheet" href="/css/setupMfa.css">
+{% endblock %}
+
+{% block content %}
+
+   <div class="mfa-wrapper">
+     <div class="qr-code-box">
+       <p id="scanInstructions">Scan the QR code below with your Google or Microsoft Authenticator app.</p>
+       <img src="{{ qrCode }}" alt="Scan this QR code" />
+     </div>
+
+     <div class="mfa-setup-container">
+       {% if error %}
+         <p class="error">{{ error }}</p>
+       {% endif %}
+
+       <form method="GET" action="/verify-mfa-token">
+         <div class="form-group">
+           <label for="token">Ready to enter the token?</label>
+           <button type="submit">Verify & Enable MFA</button>
+         </div>
+       </form>
+     </div>
+   </div>
+
+{% endblock %}

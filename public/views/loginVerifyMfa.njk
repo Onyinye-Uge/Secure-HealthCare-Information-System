@@ -1,0 +1,75 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+  <title>MFA Verification - Stark Medical</title>
+  <link rel="stylesheet" href="/css/layout.css">
+  <style>
+    .mfa-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .mfa-box {
+      background-color: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      width: 400px;
+    }
+
+    .mfa-box h2 {
+      margin-bottom: 20px;
+      color: #1F2C45;
+    }
+
+    .mfa-box input {
+      width: 100%;
+      padding: 10px;
+      margin: 12px 0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+    }
+
+    .mfa-box button {
+      background-color: #1F2C45;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .mfa-box button:hover {
+      background-color: #243b55;
+    }
+
+    .error-text {
+      color: red;
+      margin-top: 10px;
+    }
+
+    label{
+      color: black;
+    }
+  </style>
+{% endblock %}
+
+{% block content %}
+<div class="mfa-container">
+  <div class="mfa-box">
+    <form method="POST" action="/verify-mfa">
+      <label for="token">Enter Code from Authenticator App</label>
+      <input type="text" name="token" id="token" required placeholder="">
+
+      <button type="submit">Verify</button>
+
+      {% if error %}
+        <p class="error-text">{{ error }}</p>
+      {% endif %}
+    </form>
+  </div>
+</div>
+{% endblock %}

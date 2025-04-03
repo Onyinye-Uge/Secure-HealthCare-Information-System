@@ -1,0 +1,24 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+    <title>Page not found!</title>
+    <link rel="stylesheet" href="/css/error.css">
+{% endblock %}
+
+{% block header %}
+{% endblock %}
+
+{% block content %}
+    <div id="errorWarning">
+        <h1 id="firstHeader">
+            404
+        </h1>
+        <p>
+            Page not found!
+        </p>
+
+        <div id="redirectUserContainer">
+                <a href="/" id="redirectUser">Return</a></button>
+        </div>
+    </div>
+{% endblock %}

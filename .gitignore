@@ -1,0 +1,15 @@
+/package.json
+/package-lock.json
+/node_modules/
+/logs/
+/public/scripts
+/config
+/.env
+/StarkMedicalCertificate.p12
+/config/cert.pem
+/config/key.pem
+/utils/logs/databaseActivity.log
+/utils/logs/errorActivity.log
+/utils/logs/userActivity.log
+/utils/logs/authenticationActivity.log
+/Stark_Medical_Security_Plan_Presentation.pptx

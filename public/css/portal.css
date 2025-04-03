@@ -1,0 +1,149 @@
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background: linear-gradient(to right, #1F2C45, #243b55);
+    color: #1F2C45;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ===== Header (inherits from layout) ===== */
+.header-container {
+    position: relative;
+    text-align: center;
+    background: white;
+    padding-top: 40px;
+    padding-bottom: 10px;
+}
+
+.header-container p {
+    color: black;
+    font-weight: bold;
+}
+
+.header-container::before {
+    border-radius: 50%;
+    content: "";
+    height: 50%;
+    width: 50%;
+    left: -100px;
+    top: -100px;
+    position: absolute;
+    background: linear-gradient(to right, #1F2C45, #243b55);
+    animation: float 4s ease-in-out infinite;
+}
+
+.welcome-text {
+    margin-top: 10px;
+    font-size: 1.1rem;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+}
+
+.logout-btn {
+    position: absolute;
+    top: 20px;
+    right: 10px;
+    margin-top: 85px;
+    background-color: #99C4DF;
+    color: #1F2C45;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.logout-btn:hover {
+    background-color: #4177b3;
+    color: white;
+}
+
+/* ===== Main Dashboard Area ===== */
+.dashboard {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    padding: 40px 20px;
+}
+
+/* ===== Card Container ===== */
+.card-grid {
+    background-color: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    max-width: 1100px;
+    width: 100%;
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
+
+/* ===== Individual Cards ===== */
+.card {
+    /*background-color: #A6BDE7;*/
+    /*background-color: #f4f8ff;*/
+    background-color: #BECEEB;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: left;
+    text-decoration: none;
+    color: #1F2C45;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.card h2 {
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+}
+
+.card p {
+    font-size: 0.95rem;
+    /*color: #3e4a5e;*/
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    background-color: #e9f3ff;
+}
+
+.welcome-text {
+    display: flex;
+    align-items: flex-start;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+.footer-container{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+section {
+    /*height: 100%;*/
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 768px) {
+    .card-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .logout-btn {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+}
+
+/* ===== Handle Animation ===== */

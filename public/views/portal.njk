@@ -1,0 +1,84 @@
+{% extends "layout.njk" %}
+
+{% block head %}
+  <title>{{ user.role | capitalize }} Dashboard</title>
+  <link rel="stylesheet" href="/css/portal.css" />
+{% endblock %}
+
+{% block header %}
+  <div class="header-container">
+    <div id="starkHeader">
+        <h1 class="title">Stark Medical</h1>
+        <p class="subtitle">Secure. Smart. Seamless Healthcare.</p>
+    </div>
+    {% if user.role == 'doctor' %}
+        <p class="welcome-text">Welcome, Dr. {{ user.name }}</p>
+    {% else %}
+        <p class="welcome-text">Welcome, {{ user.name }} ({{ user.role | capitalize }})</p>
+    {% endif %}
+    <form id="logoutForm" action="/logout" method="POST" style="display: inline;">
+      <button type="submit" class="logout-btn">Logout</button>
+    </form>
+  </div>
+{% endblock %}
+
+{% block content %}
+  <main class="dashboard">
+    <section class="card-grid">
+
+      <!-- Shared: View Profile -->
+      <a href="/profile" class="card">
+        <h2>My Profile</h2>
+        <p>View your personal information and request updates.</p>
+      </a>
+
+      <!-- Doctor -->
+      {% if user.role == 'doctor' %}
+        <a href="/appointments/my-schedule" class="card">
+          <h2>My Appointments</h2>
+          <p>View and manage your upcoming appointments.</p>
+        </a>
+        <a href="/patients/my-patients" class="card">
+          <h2>My Patients</h2>
+          <p>Access patient charts, notes, and lab requests.</p>
+        </a>
+        <a href="/notes/new" class="card">
+          <h2>Add Consultation Notes</h2>
+          <p>Record new notes after patient appointments.</p>
+        </a>
+      {% endif %}
+
+      <!-- Assistant/Receptionist -->
+      {% if user.role == 'assistant' or user.role == 'receptionist' %}
+        <a href="/appointments/today" class="card">
+          <h2>Today's Appointments</h2>
+          <p>View all scheduled appointments for today.</p>
+        </a>
+        <a href="/appointments/new" class="card">
+          <h2>Schedule Appointment</h2>
+          <p>Book a new appointment for a patient.</p>
+        </a>
+        <a href="/patients/new" class="card">
+          <h2>Register Patient</h2>
+          <p>Enter new patient details into the system.</p>
+        </a>
+        <a href="/patients" class="card">
+          <h2>Manage Patients</h2>
+          <p>View or update existing patient records.</p>
+        </a>
+      {% endif %}
+
+      <!-- Pharmacist -->
+      {% if user.role == 'pharmacist' %}
+        <a href="/prescriptions/pending" class="card">
+          <h2>Pending Prescriptions</h2>
+          <p>Review prescriptions awaiting fulfillment.</p>
+        </a>
+        <a href="/inventory" class="card">
+          <h2>Inventory Management</h2>
+          <p>View and update current medication stock.</p>
+        </a>
+      {% endif %}
+    </section>
+  </main>
+{% endblock %}
