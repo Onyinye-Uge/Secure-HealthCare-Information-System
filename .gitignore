@@ -2,10 +2,10 @@
 /package-lock.json
 /node_modules/
 /logs/
-/public/scripts
+/models/
 /config
+/public/scripts
 /.env
-/models
 /StarkMedicalCertificate.p12
 /config/cert.pem
 /config/key.pem
