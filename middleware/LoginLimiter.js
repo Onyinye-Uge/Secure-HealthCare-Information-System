@@ -13,6 +13,7 @@ Criteria:
 // import necessary libraries
 let {check} = require("express-validator");
 let rateLimiter = require('express-rate-limit');
+const {int} = require("nunjucks/src/filters");
 
 let loginLimiter = rateLimiter(
     {
@@ -30,7 +31,7 @@ let loginLimiter = rateLimiter(
 
 // These validators ensure that our security criteria are met when a login attempt is made.
 let loginValidators = [
-    check('employeeId').isLength({ min: 6, max: 6 }),
+    check('employeeId').isLength({ min: 6, max: 6 }).isNumeric(),
     check('password').isLength({ min: 10 })
 ]
 

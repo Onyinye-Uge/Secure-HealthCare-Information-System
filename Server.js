@@ -8,16 +8,17 @@ let express = require('express');
 let mongoose = require('mongoose');
 let nunjucks = require('nunjucks');
 let { format } = require('date-fns');
-let session = require('express-session');
 let bodyParser = require('body-parser');
+let session = require('express-session');
 let mongoSanitize = require('express-mongo-sanitize');
 
 // ===== CONFIG AND ROUTES =====
 let config = require('./config/config');
-let mfaRoutes = require('./routes/mfaHandler');
 let loginHandler = require('./routes/loginHandler');
 let portalHandler = require('./routes/portalHandler');
 let logoutHandler = require('./routes/logoutHandler');
+let setMfaRoutes = require('./routes/setupMfaHandler');
+let loginMfaRoutes = require('./routes/loginMfaHandler');
 let changePasswordRoute = require('./routes/changePasswordHandler');
 
 // ===== INITIATE APP =====
@@ -86,7 +87,8 @@ mongoose.connect(config.mongoURI).then(() => {
     // ===== ROUTES =====
     app.use(loginHandler);             // Handles login
     app.use(changePasswordRoute);      // Handles password change
-    app.use(mfaRoutes);                // Handles MFA setup and verification
+    app.use(setMfaRoutes);                // Handles MFA setup and verification
+    app.use(loginMfaRoutes);                // Handles MFA setup and verification
     app.use(portalHandler);             // Handles portal routes
     app.use(logoutHandler);             // Handles login out
 

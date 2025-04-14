@@ -2,9 +2,9 @@
 
 let bcrypt = require('bcrypt');
 let mongoose = require('mongoose');
-let User = require('../../models/User');
-let config = require('../../config/config');
-let { logErrorActivity, logDBActivity } = require('../../utils/Logger');
+let User = require('./User');
+let config = require('../config/config');
+let { logErrorActivity, logDBActivity } = require('../utils/Logger');
 
 // Generate a unique 6-digit Employee ID
 function generateEmployeeID() {

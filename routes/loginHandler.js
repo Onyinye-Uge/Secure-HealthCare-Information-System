@@ -22,8 +22,7 @@ router.post(
             logErrorActivity('Login attempt body:', req.body);
             // Redirect the user
             return res.status(400).render('indexLogin.njk', {
-                error: 'Invalid login credentials.',
-                employeeId: req.body.employeeId || ''
+                error: 'Invalid login credentials.'
             });
         }
         // Retrieve the request body
@@ -39,8 +38,7 @@ router.post(
             logErrorActivity("Invalid login credentials.", employeeId || 'Unknown');
             // Redirect the user
             return res.status(401).render('indexLogin.njk', {
-                error: 'Invalid credentials.',
-                employeeId
+                error: 'Invalid credentials.'
             });
         }
 
@@ -61,7 +59,8 @@ router.post(
             id: user._id,
             name: user.fullName,
             role: user.role,
-            employeeId: user.employeeId
+            employeeId: user.employeeId,
+            isAuthenticated: false,
         };
         // Log the authentication events
         logAuthenticationActivity("User Password is correct!", req.session.user.employeeId || 'Unknown');

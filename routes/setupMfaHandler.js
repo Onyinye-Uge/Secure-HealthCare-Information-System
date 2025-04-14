@@ -1,41 +1,12 @@
-/*
-Handles pages and logic related to setting up and verifying MFA.
-*/
 let qrcode = require("qrcode");
 let express = require("express");
 let speakeasy = require("speakeasy");
 let User = require("../models/User");
-let rateLimiter = require("express-rate-limit");
+let { mfaAuthLimiter, verifyToken } = require("../middleware/MfaLimiter");
 let { logErrorActivity, logAuthenticationActivity, logUserActivity, logDBActivity} = require("../utils/Logger");
 
 // Initiate the router
 let router = express.Router();
-
-/**
- * Helper function to verify a TOTP token.
- */
-function verifyToken(secret, token) {
-    return speakeasy.totp.verify({
-        secret,
-        encoding: "base32",
-        token,
-        // My device clock and my server's clock may be out of sync. This window attribute '1' allows the device app to check 30 seconds prior and after the code was generated.
-        window: 1
-    });
-}
-
-// Set a limit on how many tokens can be submitted
-let mfaAuthLimiter = rateLimiter({
-    windowMs: 60 * 60 * 1000,
-    max: 3,
-    keyGenerator: (req) => req.session.tempMfaUser || req.ip,
-    standardHeaders: true,
-    message: "Too many verification attempts. Please try again after an hour or contact your admin.",
-    // Custom handler when limit is exceeded
-    handler: (req, res) => {
-        return res.status(429).render('indexLogin.njk');
-    }
-});
 
 /**
  * GET: Show MFA setup page (QR Code + manual secret)
@@ -145,6 +116,8 @@ router.post("/verify-mfa-token", mfaAuthLimiter, async (req, res) => {
         console.log("user verified", user.fullName);
         user.mfaEnabled = true;
         await user.save();
+        // Update the user's authentication status
+        req.session.user.isAuthenticated = true;
         // Log activity
         logAuthenticationActivity("User is verified and their mfa is successfully enabled!", req.session.user.employeeId || 'Unknown');
         delete req.session.tempMfaSecret;
@@ -159,75 +132,6 @@ router.post("/verify-mfa-token", mfaAuthLimiter, async (req, res) => {
             error: "❌ Invalid MFA token. Please try again.",
             qrCode: req.session.mfaQRCode,
             secret: user.mfaSecret
-        });
-    }
-});
-
-/**
- * GET: Show MFA code verification form during login (NOT setup)
- */
-router.get("/verify-mfa", (req, res) => {
-    if (!req.session.tempMfaUser) {
-        // Log activity
-        logErrorActivity("Unauthorized access to MFA verification", req.session.user.employeeId || 'Unknown');
-        return res.status(403).render('indexLogin.njk', {error: "Unauthorized access to MFA verification"});
-    }
-    let flashMessage = req.session.flashMessage;
-    delete req.session.flashMessage;
-
-    // Log activity
-    logAuthenticationActivity("User is requesting to verify their mfa", req.session.user.employeeId || 'Unknown');
-    return res.render("loginVerifyMfa.njk", {
-        flashMessage: flashMessage
-    });
-});
-
-/**
- * POST: Verify MFA during login
- */
-router.post("/verify-mfa", mfaAuthLimiter, async (req, res) => {
-    // Extract the token from the request body
-    let { token } = req.body;
-    // Get the mongo document id of the user (user id)
-    let userId = req.session.tempMfaUser;
-
-    // Check if the user is an  actual user
-    if (!userId) {
-        // Log activity
-        logErrorActivity("Unauthorized access", req.session.user.employeeId || 'Unknown');
-        return res.status(403).render('indexLogin.njk', {error: "Unauthorized access"});
-    }
-
-    // Extract the user from the database and ensure that they are valid users in the database
-    let user = await User.findById(userId);
-    logDBActivity("User successfully read from the database", user.employeeId);
-    if (!user || !user.mfaSecret) {
-        // Log activity
-        logErrorActivity("User or MFA secret not found");
-        return res.status(404).render('indexLogin.njk', {error: "User or MFA secret not found"});
-    }
-
-    // Determine the validity of the inputted token
-    let verified = verifyToken(user.mfaSecret, token);
-    // Log activity
-    logAuthenticationActivity("User has successfully verified their mfa", req.session.user.employeeId || 'Unknown');
-    console.log(`\n${req.session.user.employeeId} verified: ` + verified);
-
-    // If the user is validated, we route them over to their respective portal
-    if (verified) {
-        req.session.user = {
-            id: user._id,
-            name: user.fullName,
-            role: user.role,
-            employeeId: user.employeeId
-        };
-        delete req.session.tempMfaUser;
-        return res.redirect(`/portal/${user.role}`);
-    } else {
-        // Log activity
-        logErrorActivity("Invalid MFA token");
-        return res.status(401).render("loginVerifyMfa.njk", {
-            error: "❌ Invalid MFA token. Please try again."
         });
     }
 });
