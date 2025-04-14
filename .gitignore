@@ -13,4 +13,5 @@
 /utils/logs/userActivity.log
 /utils/logs/authenticationActivity.log
 /Stark_Medical_Security_Plan_Presentation.pptx
-/models/
+/models/User.js
+/models/addUser.js
