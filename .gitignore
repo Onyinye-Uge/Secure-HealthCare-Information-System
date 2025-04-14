@@ -2,7 +2,6 @@
 /package-lock.json
 /node_modules/
 /logs/
-/models/
 /config
 /public/scripts
 /.env
@@ -14,3 +13,4 @@
 /utils/logs/userActivity.log
 /utils/logs/authenticationActivity.log
 /Stark_Medical_Security_Plan_Presentation.pptx
+/models/
